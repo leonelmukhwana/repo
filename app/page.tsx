@@ -43,6 +43,16 @@ export default function Home() {
             Order Now
           </button>
         </Link>
+         {/* Microsoft Form Button */}
+    <a
+      href="https://forms.office.com/Pages/ResponsePage.aspx?id=JzfHFpyXgk2zp-tqL93-V1fdJne7SIlMnh7yZpkW8f5UQzU1TjNRSjJWNFJaUzNBNVo5S1BXQ0lINi4u&origin=Invitation&channel=0"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:scale-105 transition">
+        Fill Form
+      </button>
+    </a>
       </section>
 
       {/* MAIN */}
