@@ -61,7 +61,7 @@ export default function Order() {
 
       {/* FORM CONTAINER */}
       <div className="px-4">
-        <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-5 sm:p-8 mt-6 sm:mt-10">
+        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-5 sm:p-8 mt-6 sm:mt-10">
 
           {/* PACKAGE */}
           <div className="mb-6">
@@ -71,8 +71,10 @@ export default function Order() {
               <button
                 type="button"
                 onClick={() => setPkg("standard")}
-                className={`p-4 border rounded-lg ${
-                  pkg === "standard" ? "bg-black text-white" : ""
+                className={`p-4 border-2 rounded-lg transition ${
+                  pkg === "standard"
+                    ? "bg-black text-white border-black"
+                    : "border-gray-400"
                 }`}
               >
                 Standard - Ksh 1,999
@@ -81,8 +83,10 @@ export default function Order() {
               <button
                 type="button"
                 onClick={() => setPkg("premium")}
-                className={`p-4 border rounded-lg ${
-                  pkg === "premium" ? "bg-black text-white" : ""
+                className={`p-4 border-2 rounded-lg transition ${
+                  pkg === "premium"
+                    ? "bg-black text-white border-black"
+                    : "border-gray-400"
                 }`}
               >
                 Premium - Ksh 2,999
@@ -93,65 +97,91 @@ export default function Order() {
           {/* FORM */}
           <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-4">
 
-            <input
-              name="fullName"
-              required
-              placeholder="Full Name"
-              className="border p-3 rounded-lg col-span-1 md:col-span-2"
-            />
+            {/* FULL NAME */}
+            <div className="col-span-1 md:col-span-2">
+              <label className="block text-sm font-medium mb-1">Full Name</label>
+              <input
+                name="fullName"
+                required
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-            <input
-              name="phone"
-              required
-              placeholder="Primary Phone"
-              className="border p-3 rounded-lg"
-            />
+            {/* PHONE */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Primary Phone</label>
+              <input
+                name="phone"
+                required
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-            <input
-              name="altPhone"
-              placeholder="Alternative Phone"
-              className="border p-3 rounded-lg"
-            />
+            {/* ALT PHONE */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Alternative Phone</label>
+              <input
+                name="altPhone"
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-            <input
-              name="email"
-              required
-              type="email"
-              placeholder="Email"
-              className="border p-3 rounded-lg col-span-1 md:col-span-2"
-            />
+            {/* EMAIL */}
+            <div className="col-span-1 md:col-span-2">
+              <label className="block text-sm font-medium mb-1">Email</label>
+              <input
+                name="email"
+                type="email"
+                required
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-            <input
-              name="town"
-              required
-              placeholder="Town"
-              className="border p-3 rounded-lg"
-            />
+            {/* TOWN */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Town</label>
+              <input
+                name="town"
+                required
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-            <input
-              name="landmark"
-              required
-              placeholder="Landmark"
-              className="border p-3 rounded-lg"
-            />
+            {/* LANDMARK */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Landmark</label>
+              <input
+                name="landmark"
+                required
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-            <input
-              name="date"
-              required
-              type="date"
-              className="border p-3 rounded-lg"
-            />
+            {/* DATE */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Installation Date</label>
+              <input
+                name="date"
+                type="date"
+                required
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-            <select
-              name="time"
-              required
-              className="border p-3 rounded-lg"
-            >
-              <option value="">Preferred Time</option>
-              <option>Morning</option>
-              <option>Afternoon</option>
-              <option>Evening</option>
-            </select>
+            {/* TIME */}
+            <div>
+              <label className="block text-sm font-medium mb-1">Preferred Time</label>
+              <select
+                name="time"
+                required
+                className="border border-gray-400 bg-white p-3 rounded-lg w-full outline-none focus:border-black focus:ring-2 focus:ring-yellow-400"
+              >
+                <option value="">Select time</option>
+                <option>Morning</option>
+                <option>Afternoon</option>
+                <option>Evening</option>
+              </select>
+            </div>
 
             {/* DEVICES */}
             <div className="col-span-1 md:col-span-2 flex items-center justify-center gap-6">
@@ -177,7 +207,7 @@ export default function Order() {
             {/* SUBMIT */}
             <button
               disabled={loading}
-              className="col-span-1 md:col-span-2 bg-yellow-500 text-black py-3 rounded-lg font-semibold"
+              className="col-span-1 md:col-span-2 bg-yellow-500 text-black py-3 rounded-lg font-semibold hover:bg-yellow-400 transition"
             >
               {loading ? "Submitting..." : "Submit Request"}
             </button>
