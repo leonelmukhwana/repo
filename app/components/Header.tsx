@@ -1,3 +1,4 @@
+"use client";
 export default function Header() {
   return (
     <header className="sticky top-0 bg-white border-b border-yellow-500 z-50 shadow-sm">

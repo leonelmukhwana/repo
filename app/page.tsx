@@ -38,11 +38,7 @@ export default function Home() {
           {messages[index]}
         </p>
 
-        <Link href="/order">
-          <button className="mt-6 bg-yellow-500 text-black px-6 py-3 rounded-lg font-semibold hover:scale-105 transition">
-            Order Now
-          </button>
-        </Link>
+        
          {/* Microsoft Form Button */}
     <a
       href="https://forms.office.com/Pages/ResponsePage.aspx?id=JzfHFpyXgk2zp-tqL93-V1fdJne7SIlMnh7yZpkW8f5UQzU1TjNRSjJWNFJaUzNBNVo5S1BXQ0lINi4u&origin=Invitation&channel=0"
@@ -50,7 +46,7 @@ export default function Home() {
       rel="noopener noreferrer"
     >
       <button className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:scale-105 transition">
-        Fill Form
+        Click to Oder Now
       </button>
     </a>
       </section>
