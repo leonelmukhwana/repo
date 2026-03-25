@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebase"; 
+import { db } from "../../firebase";
 import Header from "../components/Header";
 import { Footer } from "../components/Footer";
 
@@ -33,14 +33,12 @@ export default function Order() {
       date: e.target.date.value,
       time: e.target.time.value,
       devices,
-      package: pkg,                  // ✅ Package type included
+      package: pkg,
       createdAt: serverTimestamp(),
     };
 
     try {
       await addDoc(collection(db, "orders"), formData);
-
-      // Redirect to thank-you page
       router.push("/thank-you");
     } catch (error) {
       console.error("Error saving order:", error);
@@ -54,63 +52,137 @@ export default function Order() {
     <div className="bg-gray-50 min-h-screen">
       <Header />
 
-      <div className="bg-black text-white py-12 text-center">
-        <h1 className="text-3xl font-bold text-yellow-500">
+      {/* HEADER */}
+      <div className="bg-black text-white py-10 text-center">
+        <h1 className="text-xl sm:text-3xl font-bold text-yellow-500 px-4">
           Airtel 5G Installation Request
         </h1>
       </div>
 
-      <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-8 mt-10">
-        {/* PACKAGE */}
-        <div className="mb-6">
-          <p className="font-semibold mb-3">Choose Package</p>
-          <div className="grid grid-cols-2 gap-4">
-            <button
-              type="button"
-              onClick={() => setPkg("standard")}
-              className={`p-4 border rounded-lg ${pkg === "standard" ? "bg-black text-white" : ""}`}
-            >
-              Standard - Ksh 1,999
-            </button>
-            <button
-              type="button"
-              onClick={() => setPkg("premium")}
-              className={`p-4 border rounded-lg ${pkg === "premium" ? "bg-black text-white" : ""}`}
-            >
-              Premium - Ksh 2,999
-            </button>
+      {/* FORM CONTAINER */}
+      <div className="px-4">
+        <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl p-5 sm:p-8 mt-6 sm:mt-10">
+
+          {/* PACKAGE */}
+          <div className="mb-6">
+            <p className="font-semibold mb-3">Choose Package</p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <button
+                type="button"
+                onClick={() => setPkg("standard")}
+                className={`p-4 border rounded-lg ${
+                  pkg === "standard" ? "bg-black text-white" : ""
+                }`}
+              >
+                Standard - Ksh 1,999
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPkg("premium")}
+                className={`p-4 border rounded-lg ${
+                  pkg === "premium" ? "bg-black text-white" : ""
+                }`}
+              >
+                Premium - Ksh 2,999
+              </button>
+            </div>
           </div>
+
+          {/* FORM */}
+          <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-4">
+
+            <input
+              name="fullName"
+              required
+              placeholder="Full Name"
+              className="border p-3 rounded-lg col-span-1 md:col-span-2"
+            />
+
+            <input
+              name="phone"
+              required
+              placeholder="Primary Phone"
+              className="border p-3 rounded-lg"
+            />
+
+            <input
+              name="altPhone"
+              placeholder="Alternative Phone"
+              className="border p-3 rounded-lg"
+            />
+
+            <input
+              name="email"
+              required
+              type="email"
+              placeholder="Email"
+              className="border p-3 rounded-lg col-span-1 md:col-span-2"
+            />
+
+            <input
+              name="town"
+              required
+              placeholder="Town"
+              className="border p-3 rounded-lg"
+            />
+
+            <input
+              name="landmark"
+              required
+              placeholder="Landmark"
+              className="border p-3 rounded-lg"
+            />
+
+            <input
+              name="date"
+              required
+              type="date"
+              className="border p-3 rounded-lg"
+            />
+
+            <select
+              name="time"
+              required
+              className="border p-3 rounded-lg"
+            >
+              <option value="">Preferred Time</option>
+              <option>Morning</option>
+              <option>Afternoon</option>
+              <option>Evening</option>
+            </select>
+
+            {/* DEVICES */}
+            <div className="col-span-1 md:col-span-2 flex items-center justify-center gap-6">
+              <button
+                type="button"
+                onClick={() => setDevices(Math.max(1, devices - 1))}
+                className="px-4 py-2 bg-gray-200 rounded-lg"
+              >
+                -
+              </button>
+
+              <span className="text-lg font-semibold">{devices}</span>
+
+              <button
+                type="button"
+                onClick={() => setDevices(devices + 1)}
+                className="px-4 py-2 bg-gray-200 rounded-lg"
+              >
+                +
+              </button>
+            </div>
+
+            {/* SUBMIT */}
+            <button
+              disabled={loading}
+              className="col-span-1 md:col-span-2 bg-yellow-500 text-black py-3 rounded-lg font-semibold"
+            >
+              {loading ? "Submitting..." : "Submit Request"}
+            </button>
+          </form>
         </div>
-
-        <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-5">
-          <input name="fullName" required placeholder="Full Name" className="border p-3 rounded-lg col-span-2" />
-          <input name="phone" required placeholder="Primary Phone" className="border p-3 rounded-lg" />
-          <input name="altPhone" placeholder="Alternative Phone" className="border p-3 rounded-lg" />
-          <input name="email" required type="email" placeholder="Email" className="border p-3 rounded-lg col-span-2" />
-          <input name="town" required placeholder="Town" className="border p-3 rounded-lg" />
-          <input name="landmark" required placeholder="Landmark" className="border p-3 rounded-lg" />
-          <input name="date" required type="date" className="border p-3 rounded-lg" />
-
-          <select name="time" required className="border p-3 rounded-lg">
-            <option value="">Preferred Time</option>
-            <option>Morning</option>
-            <option>Afternoon</option>
-            <option>Evening</option>
-          </select>
-
-          <div className="col-span-2 flex items-center gap-4">
-            <button type="button" onClick={() => setDevices(Math.max(1, devices - 1))}>-</button>
-            <span>{devices}</span>
-            <button type="button" onClick={() => setDevices(devices + 1)}>+</button>
-          </div>
-
-          <button
-            disabled={loading}
-            className="col-span-2 bg-yellow-500 text-black py-3 rounded-lg font-semibold"
-          >
-            {loading ? "Submitting..." : "Submit Request"}
-          </button>
-        </form>
       </div>
 
       <Footer />
